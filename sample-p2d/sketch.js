@@ -1,4 +1,4 @@
-const { p2dSketch } = require('p5-holoplay');
+const { p2dSketch } = require('../');
 
 const colors = [
   [255, 50, 50],
@@ -11,8 +11,8 @@ let colorIdx = 0;
 const setup = (p, err, meta) => {
   if (err) console.error(`Error getting HoloCore started: ${err}`);
   else {
-    const { hardwareVersion, hwid } = meta.device;
-    console.log('Started HoloCore for', hardwareVersion, hwid);
+    // const { hardwareVersion, hwid } = meta.device;
+    console.log('Started HoloCore for');
     p.noStroke();
     p.textAlign(p.CENTER, p.CENTER);
     p.textSize(50);

@@ -66,9 +66,16 @@ module.exports = async ({ preload, setup, draw, options }) => {
     previewQuilt = false
   } = options || {};
   try {
-    const [client, device] = await getClient();
+    const Bridge = await getClient();
 
-    let { defaultQuilt } = device;
+    // let { defaultQuilt } = device;
+    const defaultQuilt = {
+      quiltAspect: 0.75,
+      quiltX: 3360,
+      quiltY: 3360,
+      tileX: 8,
+      tileY: 6
+    };
     const {
       quiltAspect: aspect,
       quiltX: w,
@@ -90,7 +97,7 @@ module.exports = async ({ preload, setup, draw, options }) => {
 
         const updateViewerFrame = () => viewerFrame++;
 
-        showQuilt({ quilt, client, specs, updateViewerFrame, status });
+        showQuilt({ quilt, Bridge, specs, updateViewerFrame, status });
 
         if (previewQuilt) {
           preview.hide();
@@ -98,7 +105,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
         }
         const meta = {
           viewerFrame,
-          device,
           quilt,
           p,
           preview
@@ -111,7 +117,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
         const add = (action, depth) => shapes.push({ action, depth });
         const meta = {
           viewerFrame,
-          device,
           quilt,
           p,
           preview
@@ -119,7 +124,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
         if (draw) draw(p, add, meta);
         drawQuilt({
           p,
-          client,
           shapes,
           specs,
           quilt,
